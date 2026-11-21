@@ -1,0 +1,36 @@
+{
+  "name": "evm-wallet-shield",
+  "version": "1.0.0",
+  "description": "Zero-dependency 7-chain EIP-7702 (0xef0100) sweeper scanner, ascending-tuple Type-0x04 nonce cleaner, and browser 0x05 signer firewall.",
+  "type": "module",
+  "license": "MIT",
+  "author": "LevCodeLab",
+  "bin": {
+    "wallet-shield": "./src/cli.mjs"
+  },
+  "exports": {
+    ".": "./src/scanner.mjs",
+    "./rlp": "./src/rlp.mjs",
+    "./scanner": "./src/scanner.mjs",
+    "./firewall": "./browser/wallet-shield-firewall.js"
+  },
+  "scripts": {
+    "scan": "node ./src/cli.mjs",
+    "demo": "node ./src/cli.mjs --demo",
+    "test": "node --test",
+    "lint:brand": "node -e \"import('node:fs').then(fs=>{const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.name==='.git'||e.name==='node_modules'?[]:e.isDirectory()?walk(d+'/'+e.name):[d+'/'+e.name]);for(const f of walk('.')){const t=fs.readFileSync(f,'utf8');if(t.includes('\\u2014')){console.error('em-dash found in '+f);process.exit(1)}}console.log('lint:brand clean (0 hygiene issues)')})\""
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "eip-7702",
+    "ethereum",
+    "evm",
+    "wallet-security",
+    "rlp",
+    "eip-6963",
+    "firewall",
+    "nonce"
+  ]
+}
