@@ -7,87 +7,63 @@
 ![Dependencies](https://img.shields.io/badge/dependencies-zero-141418?style=flat-square&color=141418&labelColor=26262E)
 ![Chains](https://img.shields.io/badge/evm_chains-7-141418?style=flat-square&color=141418&labelColor=26262E)
 
-Made this after seeing folks lose wallets to blind signatures right after EIP-7702 went live. It is not a bug bhai, EIP-7702 literally lets an EOA wear smart contract clothes. That is great for batching legitimate transactions, and terrible when a phishing page tricks you into signing a single `0x05` tuple that turns your wallet into an automated token sweeper across seven chains at once.
+Made this on 3am ginger chai after watching folks lose wallets to blind signatures.
 
-`evm-wallet-shield` is a zero-dependency Node ESM toolkit, Edge API handler, and standalone browser signer firewall that scans wallets for hidden `0xef0100` delegations, checks second-hop smart-account owners, generates ascending-tuple Type-`0x04` nonce-cleaning preimages, and blocks shady `0x05` signing prompts before they hit your wallet.
-
----
+Not a bug bhai, free feature: EIP 7702 literally lets a normal wallet wear smart contract clothes. One bad click on a fake airdrop page and your wallet starts forwarding tokens across seven chains faster than you can unplug WiFi.
 
 ## what is this
 
-1. **7-Chain EIP-7702 (`0xef0100`) Scanner**: Checks `Ethereum`, `Arbitrum`, `Base`, `Optimism`, `Polygon`, `Avalanche`, and `BNB Chain` in parallel via standard JSON-RPC. Flags active `0xef0100` code pointers and inspects delegate bytecode for sweeper selectors (`0xa9059cbb`, `0x043ff9d2`).
-2. **Second-Hop Smart-Account Proxy Auditor**: Even if a smart account or EIP-1967 proxy has clean bytecode, if its `getOwner()` (`0x66b46a7a`) points to a single plain EOA, an EIP-7702 hijack on that owner EOA can drain the proxy in one shot. The scanner follows that second hop automatically.
-3. **Ascending-Tuple Type-`0x04` Nonce Cleaner**: Revoking a delegation normally burns just one nonce. If an attacker cached pre-signed tuples for `nonce + 1 .. nonce + K`, they can re-infect your wallet on the next block. Packing `K` null-delegation (`0x0000...0000`) tuples in strictly ascending nonce order burns all `K` nonces atomically in a single Type-`0x04` transaction.
-4. **Browser `0x05` & EIP-6963 Signer Firewall**: Drop-in script that wraps `window.ethereum` and `eip6963:announceProvider` wallets to stop unauthorized `wallet_signAuthorization`, `chainId === 0` all-chain wildcard replays, non-zero Type-`0x04` `authorizationList` payloads, and raw `0x05` RLP blind-signing over `eth_sign` / `personal_sign`, while letting `0x0000000000000000000000000000000000000000` revocations pass through.
-
----
+* **7 chain wallet scanner**: Checks Ethereum, Arbitrum, Base, Optimism, Polygon, Avalanche, and BNB Chain in one go.
+* **Hidden sweeper finder**: Spots active `0xef0100` code stuck on your wallet and flags token drain functions inside it.
+* **Smart wallet owner check**: Checks if a safe looking smart wallet is actually owned by one plain hot wallet.
+* **Bulk nonce cleaner**: Burns 15+ sequential nonces in one transaction so old leaked signatures die together.
+* **Browser signer guard**: Wraps MetaMask, Rabby, and other wallets to block shady `0x05` signing popups while still allowing `0x0000...0000` cleanup transactions.
+* **Zero package bloat**: Pure Node 18+ with zero external libraries. When i wrote the RLP byte packer only me and bhagwan knew how it worked, now only bhagwan knows (thankfully the unit tests pass).
 
 ## run it in 60 sec
 
-No `npm install` bloat needed. Zero external packages, pure Node `>= 18`.
+No heavy install step. Clone it and run the offline demo right away:
 
 ```bash
 git clone https://github.com/LevCodeLab/evm-wallet-shield.git
 cd evm-wallet-shield
 
-# Run instant offline 7-chain demo on synthetic wallet 0x0000...dEaD
+# Run instant offline 7 chain demo on test address 0x0000...dEaD
 npm run demo
 
-# Scan any live EVM address across all 7 chains + build 15 nonce-cleaning preimages
+# Scan any live 0x wallet across all 7 chains and plan 15 nonce cleanups
 node src/cli.mjs 0x000000000000000000000000000000000000dEaD 15
 
-# Emit structured JSON for scripts or dashboards
-node src/cli.mjs --demo --json
-
-# Run the full unit test suite
+# Run all unit tests
 npm test
 ```
 
----
+## quick code usage
 
-## using the browser 0x05 firewall
-
-Import `wrapProvider7702` or `installFirewall` before dApp scripts connect to injected wallets:
+Drop the signer guard into any web app before wallet scripts run:
 
 ```js
-import { installFirewall, wrapProvider7702 } from "evm-wallet-shield/firewall";
-
-// Automatically wraps window.ethereum + future EIP-6963 announced wallets
-installFirewall(window);
-
-// Or wrap a specific EIP-1193 provider instance directly
-wrapProvider7702(customProvider);
-```
-
-To generate ascending-tuple Type-`0x04` revocation preimages in code:
-
-```js
+import { installFirewall } from "evm-wallet-shield/firewall";
 import { buildAscendingNonceShredPlan } from "evm-wallet-shield/rlp";
+
+installFirewall(window);
 
 const plan = buildAscendingNonceShredPlan(1, 42, 15);
 console.log(plan.finalSafeNonce); // 57
-console.log(plan.tuples[0].rlpPreimage0x05);
-// 0x05d7019400000000000000000000000000000000000000002a
 ```
-
----
 
 ## how to edit and customize
 
-Everything is small, flat, and readable in one sitting:
-
-| Path | What lives here & how to tweak it |
+| File | What to change here |
 | :--- | :--- |
-| `src/rlp.mjs` | Zero-dep RLP uint/list encoder, `buildEip7702NullTupleRlpPreimage`, and `buildAscendingNonceShredPlan`. Edit here if you want custom max tuple counts or extra Type-`0x04` fields. |
-| `src/scanner.mjs` | `EVM_CHAINS` RPC config, USDC/USDT token addresses, sweeper selector list (`SWEEPER_SELECTORS`), `0x66b46a7a` second-hop owner check, optional Solana `ProgramData` check, and offline `--demo` mock RPC transport. Swap in your own private Alchemy/Infura RPC URLs in `EVM_CHAINS` if public nodes rate-limit you. |
-| `src/cli.mjs` | Terminal argument parser and ASCII matrix formatter (`--demo`, `--json`, `[shredCount]`). |
-| `browser/wallet-shield-firewall.js` | Browser `0x05` & EIP-6963 signer firewall (`inspect7702Payload`, `wrapProvider7702`, `installFirewall`). Pass a custom `confirmFn` option to wire it into your own modal UI instead of `window.confirm`. |
-| `api/shield.ts` | Standard Fetch / WinterCG Edge HTTP handler (`GET /api/shield?address=0x...` or `POST`). Drop into Workers, Deno, Bun, or Vercel Edge. |
-| `docs/architecture.md` | Deep-dive notes on the `0x05` RLP digest, descending-nonce time bombs, second-hop MSCA drains, and atomic ascending-nonce revocation. |
-| `test/wallet-shield.test.mjs` | `node:test` suite covering RLP boundaries, mocked 7-chain RPC responses, and all four browser firewall attack vectors. |
-
----
+| `src/rlp.mjs` | Byte encoder and sequential nonce cleanup builder. Edit this to raise max nonce batch size. |
+| `src/scanner.mjs` | Chain RPC list, USDC/USDT addresses, sweeper function checks, and offline demo data. Put your own RPC URLs here if public nodes get busy. |
+| `src/cli.mjs` | Terminal flags and ASCII table printer. |
+| `browser/wallet-shield-firewall.js` | Browser wallet guard for `0x05` signatures and `chainId 0` replay tricks. Pass your own `confirmFn` to show a custom popup. |
+| `api/shield.ts` | Ready to deploy Edge HTTP route (`GET` or `POST`) for web apps. |
+| `docs/architecture.md` | Plain notes on how `0xef0100` wallet hijacks and sequential nonce burning work. |
+| `test/wallet-shield.test.mjs` | Unit tests for byte math, mocked 7 chain scans, and browser wallet blocking. |
 
 ## license
 
-MIT - Copyright (c) 2026 LevCodeLab. See [LICENSE](./LICENSE).
+MIT License. Copyright (c) 2026 LevCodeLab. See [LICENSE](./LICENSE).
