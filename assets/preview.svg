@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" width="920" height="500" fill="none">
+  <rect width="920" height="500" rx="12" fill="#0B0B0E" stroke="#26262E" stroke-width="2"/>
+
+  <!-- Top Chrome Bar -->
+  <rect x="1" y="1" width="918" height="48" rx="11" fill="#141418"/>
+  <line x1="1" y1="49" x2="919" y2="49" stroke="#26262E" stroke-width="1"/>
+  <circle cx="24" cy="25" r="5" fill="#0B0B0E" stroke="#26262E" stroke-width="1.5"/>
+  <circle cx="42" cy="25" r="5" fill="#0B0B0E" stroke="#26262E" stroke-width="1.5"/>
+  <circle cx="60" cy="25" r="5" fill="#0B0B0E" stroke="#26262E" stroke-width="1.5"/>
+  <text x="82" y="29" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="13" font-weight="600">$ wallet-shield --demo</text>
+
+  <!-- Monochrome Header Badges -->
+  <rect x="652" y="13" width="118" height="24" rx="4" fill="#141418" stroke="#26262E" stroke-width="1"/>
+  <text x="711" y="29" text-anchor="middle" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">ZERO-DEP ESM</text>
+  <rect x="778" y="13" width="124" height="24" rx="4" fill="#FFFFFF"/>
+  <text x="840" y="29" text-anchor="middle" fill="#000000" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="700">EIP-7702 SHIELD</text>
+
+  <!-- Left Panel: 7-Chain Terminal Scan & Nonce Cleaner -->
+  <rect x="18" y="64" width="580" height="418" rx="8" fill="#141418" stroke="#26262E" stroke-width="1"/>
+
+  <text x="34" y="90" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700">[1] 7-CHAIN EVM 0xef0100 &amp; MSCA MATRIX</text>
+  <text x="366" y="90" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">TARGET: 0x0000...dEaD</text>
+  <line x1="34" y1="100" x2="582" y2="100" stroke="#26262E" stroke-width="1"/>
+
+  <!-- 7-Chain Rows -->
+  <rect x="30" y="108" width="556" height="24" rx="4" fill="#0B0B0E" stroke="#26262E" stroke-width="1"/>
+  <text x="40" y="124" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="700">Ethereum   #1     [!] 0xef0100 -&gt; 0x0000...beef [0xa9059cbb]  N:42</text>
+
+  <rect x="30" y="136" width="556" height="24" rx="4" fill="#0B0B0E" stroke="#26262E" stroke-width="1"/>
+  <text x="40" y="152" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Arbitrum   #42161 [!] MSCA 209B -&gt; owner 0x0000...cafe (EOA)  N:18</text>
+
+  <text x="40" y="178" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Base       #8453  PLAIN EOA (0B)  |  0.1850 ETH  |  850.00 USDC    N:7</text>
+  <text x="40" y="198" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Optimism   #10    PLAIN EOA (0B)  |  0.0500 ETH                    N:3</text>
+  <text x="40" y="218" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Polygon    #137   PLAIN EOA (0B)  |  145.00 POL  |  320.00 USDT    N:11</text>
+  <text x="40" y="238" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Avalanche  #43114 CONTRACT (612B) |  4.5000 AVAX |  IMMUNE         N:1</text>
+  <text x="40" y="258" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">BNB Chain  #56    PLAIN EOA (0B)  |  0.8200 BNB  |  100.00 USDT    N:0</text>
+
+  <line x1="34" y1="276" x2="582" y2="276" stroke="#26262E" stroke-width="1"/>
+
+  <!-- Section 2: Ascending-Tuple Nonce Cleaner -->
+  <text x="34" y="300" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700">[2] ASCENDING-TUPLE TYPE-0x04 NONCE CLEANER (CHAIN=1, +15 NONCES)</text>
+
+  <rect x="30" y="312" width="556" height="122" rx="6" fill="#0B0B0E" stroke="#26262E" stroke-width="1"/>
+  <text x="42" y="334" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Tuple #0 [nonce=42] -&gt; 0x0000...0000 | 0x05d70194000000000000...002a</text>
+  <text x="42" y="354" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Tuple #1 [nonce=43] -&gt; 0x0000...0000 | 0x05d70194000000000000...002b</text>
+  <text x="42" y="374" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Tuple #2 [nonce=44] -&gt; 0x0000...0000 | 0x05d70194000000000000...002c</text>
+  <text x="42" y="394" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Tuple #3 [nonce=45] -&gt; 0x0000...0000 | 0x05d70194000000000000...002d</text>
+  <text x="42" y="418" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="700">... +15 sequential nonces shredded in 1 tx -&gt; Final Safe Nonce: 57</text>
+
+  <text x="34" y="462" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Clears 0xef0100 code &amp; invalidates cached off-chain future tuples atomically</text>
+
+  <!-- Right Panel: Browser 0x05 Signer Firewall -->
+  <rect x="614" y="64" width="288" height="418" rx="8" fill="#141418" stroke="#26262E" stroke-width="1"/>
+
+  <text x="632" y="90" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700">[WALLET-SHIELD 7702 ALERT]</text>
+  <text x="632" y="108" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Browser 0x05 &amp; EIP-6963 Guard</text>
+  <line x1="630" y1="120" x2="886" y2="120" stroke="#26262E" stroke-width="1"/>
+
+  <!-- Intercepted Payload Card -->
+  <rect x="630" y="132" width="256" height="110" rx="6" fill="#0B0B0E" stroke="#26262E" stroke-width="1"/>
+  <text x="642" y="152" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">INTERCEPTED RPC PAYLOAD</text>
+  <text x="642" y="172" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">wallet_signAuthorization</text>
+  <text x="642" y="192" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">target : 0x0000...bEEF</text>
+  <text x="642" y="212" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="700">chainId: 0 (WILDCARD!)</text>
+  <text x="642" y="230" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">digest : 0x05 || RLP([0,addr,n])</text>
+
+  <!-- Guard Rules -->
+  <text x="632" y="268" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="700">ACTIVE FIREWALL RULES</text>
+  <text x="632" y="292" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">[x] Block non-zero 0x05 target</text>
+  <text x="632" y="314" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">[x] Block chainId=0 replay</text>
+  <text x="632" y="336" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">[x] Block Type-0x04 sweepers</text>
+  <text x="632" y="358" fill="#E4E4E7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">[x] Block eth_sign raw 0x05</text>
+  <text x="632" y="380" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">[v] Allow 0x0000...0000 revoke</text>
+
+  <!-- Pure Monochrome Action Buttons -->
+  <rect x="630" y="424" width="96" height="36" rx="6" fill="#141418" stroke="#26262E" stroke-width="1"/>
+  <text x="678" y="446" text-anchor="middle" fill="#A1A1AA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">Override</text>
+
+  <rect x="736" y="424" width="150" height="36" rx="6" fill="#FFFFFF"/>
+  <text x="811" y="446" text-anchor="middle" fill="#000000" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="700">Block Delegation</text>
+</svg>
